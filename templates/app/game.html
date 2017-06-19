@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block gamecontent %}
+    {% load staticfiles %}
+    <h1>Tic Tac Toe</h1>
+    <div>
+      <h4>Game {{ game }}</h4>
+      <h4>Next player: {{ player }}</h4>
+      <h4>Tiles: {{ tiles }}</h4>
+    </div>
+    <div id="board" game-id="{{ game }}" player-state="{{ player }}" tiles-array="{{ tiles }}">
+        <div class="boardrow">
+            <button class="tile" value='0' />
+            <button class="tile" value='1' />
+            <button class="tile" value='2' />
+        </div>
+        <div class="boardrow">
+            <button class="tile" value='3' />
+            <button class="tile" value='4' />
+            <button class="tile" value='5' />
+        </div>
+        <div class="boardrow">
+            <button class="tile" value='6' />
+            <button class="tile" value='7' />
+            <button class="tile" value='8' />
+        </div>
+    </div>
+{% endblock gamecontent %}
+{% block afterbody %}
+    <script type="text/javascript" src='{% static "jquery-1.12.1.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "reconnecting-websocket.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "app.js" %}'></script>
+    <script type="text/javascript" src='{% static "getCookie.js" %}'></script>
+{% endblock afterbody %}

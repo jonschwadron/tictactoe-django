@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block gamecontent %}
+{% load staticfiles %}
+<h1>Tic Tac Toe</h1>
+<div>
+      <h4>Game {{ game }} initialized</h4>
+</div>
+<div>
+  <form action="{% url 'app:join_x' game %}" method="POST">
+    {% csrf_token %}
+    <button type=submit class="button button-primary">Join X</button>
+  </form>
+</div>
+<div>
+  <form action="{% url 'app:join_o' game %}" method="POST">
+    {% csrf_token %}
+    <button type=submit class="button button-primary">Join O</button>
+  </form>
+</div>
+{% endblock gamecontent %}
