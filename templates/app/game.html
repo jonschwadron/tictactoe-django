@@ -1,33 +1,52 @@
-{% extends "base.html" %}
-{% block gamecontent %}
-    {% load staticfiles %}
-    <h1>Tic Tac Toe</h1>
-    <div>
-      <h4>Game {{ game }}</h4>
-      <h4>Next player: {{ player }}</h4>
-      <h4>Tiles: {{ tiles }}</h4>
+{% extends "base.html" %} {% block gamecontent %} {% load staticfiles %}
+<script type="text/javascript">
+    const game_id = JSON.parse("{{ game_id|escapejs }}");
+      var game_nextPlayer = JSON.parse("{{ game_nextPlayer|escapejs }}");
+    const url_updateGameData = "{% url 'app:updateGameData' game.id %}";
+    const url_getNextPlayer = "{% url 'app:getNextPlayer' game.id %}";
+    const url_getTiles = "{% url 'app:getTiles' game.id %}";
+    const url_getWinner = "{% url 'app:getWinner' game.id %}"; 
+</script>
+
+<div class="game_title">
+    <h2><strong>Tic Tac Toe</strong><small> {{ game.playerX }} vs {{ game.playerO }}</small></h2>
+    <h5></h5>
+    <h5 class="player_status"></h5>
+</div>
+<div class="game_container">
+    <div class="game_content">
+        <div id="board">
+            <div class="boardrow">
+                <div class="tile" id="tile0" value='0'></div>
+                <div class="tile" id="tile1" value='1'></div>
+                <div class="tile" id="tile2" value='2'></div>
+            </div>
+            <div class="boardrow">
+                <div class="tile" id="tile3" value='3'></div>
+                <div class="tile" id="tile4" value='4'></div>
+                <div class="tile" id="tile5" value='5'></div>
+            </div>
+            <div class="boardrow">
+                <div class="tile" id="tile6" value='6'></div>
+                <div class="tile" id="tile7" value='7'></div>
+                <div class="tile" id="tile8" value='8'></div>
+            </div>
+        </div>
     </div>
-    <div id="board" game-id="{{ game }}" player-state="{{ player }}" tiles-array="{{ tiles }}">
-        <div class="boardrow">
-            <button class="tile" value='0' />
-            <button class="tile" value='1' />
-            <button class="tile" value='2' />
-        </div>
-        <div class="boardrow">
-            <button class="tile" value='3' />
-            <button class="tile" value='4' />
-            <button class="tile" value='5' />
-        </div>
-        <div class="boardrow">
-            <button class="tile" value='6' />
-            <button class="tile" value='7' />
-            <button class="tile" value='8' />
-        </div>
-    </div>
-{% endblock gamecontent %}
-{% block afterbody %}
-    <script type="text/javascript" src='{% static "jquery-1.12.1.min.js" %}'></script>
-    <script type="text/javascript" src='{% static "reconnecting-websocket.min.js" %}'></script>
-    <script type="text/javascript" src='{% static "app.js" %}'></script>
-    <script type="text/javascript" src='{% static "getCookie.js" %}'></script>
+</div>
+
+<div id="newGamePrompt" class="modalPrompt">
+  <div class="modalPrompt-content">
+    <div>Game Over</div>
+    <form action="{% url 'app:index' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="button button-primary btnPrompt">Play Again</div>
+    </form>
+  </div>
+</div>
+
+{% endblock gamecontent %} {% block afterbody %}
+<script type="text/javascript" src='{% static "js/jquery-1.12.1.min.js" %}'></script>
+<script type="text/javascript" src='{% static "js/game.js" %}'></script>
+<script type="text/javascript" src='{% static "js/getCookie.js" %}'></script>
 {% endblock afterbody %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block gamecontent %} {% load staticfiles %}
+<div class="game_title">
+  <h2><strong>Tic Tac Toe</strong></h2>
+</div>
+
+<div class="lobby_container">
+  <div class="lobby_column">
+    <div class="lobby_item" id="btnX">
+      <div class="lobby_symbol">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div id="formX">
+      <form action="{% url 'app:join_x' %}" method="POST">
+        {% csrf_token %}
+        <input id="inputX" type="text" name="alias" placeholder="Flying Potato" required />
+        <button type=submit class="button button-primary">Play</button>
+      </form>
+    </div>
+  </div>
+  <div class="lobby_column">
+    <div class="lobby_item" id="btnO">
+      <div class="lobby_symbol">
+        <i class="fa fa-circle-o" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div id="formO">
+      <form action="{% url 'app:join_o' %}" method="POST">
+        {% csrf_token %}
+        <input id="inputO" type="text" name="alias" placeholder="Noob Nooberton" required />
+        <button type=submit class="button button-primary">Play</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock gamecontent %} {% block afterbody %}
+<script type="text/javascript" src='{% static "js/jquery-1.12.1.min.js" %}'></script>
+<script type="text/javascript" src='{% static "js/index.js" %}'></script>
+{% endblock afterbody %}

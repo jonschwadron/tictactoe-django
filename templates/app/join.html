@@ -1,20 +1,102 @@
-{% extends "base.html" %}
-{% block gamecontent %}
-{% load staticfiles %}
-<h1>Tic Tac Toe</h1>
-<div>
-      <h4>Game {{ game }} initialized</h4>
+{% extends "base.html" %} {% block gamecontent %} {% load staticfiles %}
+
+<script type="text/javascript">
+  var lobby = {
+    xState: JSON.parse('{{ xState|escapejs }}'),
+    oState: JSON.parse('{{ oState|escapejs }}'),
+    playerX: null,
+    playerO: null
+  }
+
+  const getPlayerX = "{% url 'app:getPlayerX' game.id %}";
+  const getPlayerO = "{% url 'app:getPlayerO' game.id %}";
+  const updateStatusX = "{% url 'app:updateStatusX' game.id %}";
+  const updateStatusO = "{% url 'app:updateStatusO' game.id %}";
+  const getStatusX = "{% url 'app:getStatusX' game.id %}";
+  const getStatusO = "{% url 'app:getStatusO' game.id %}";
+  const play_x = "{% url 'app:play_x' game.id %}";
+  const play_o = "{% url 'app:play_o' game.id %}";
+
+</script>
+
+<div class="game_title"><h1>Tic Tac Toe</h1></div>
+
+<div class="lobby_container">
+  {% url 'app:join_x' as x %}
+  {% url 'app:join_o' as o %}
+  <div class="lobby_column">
+    <div class="lobby_item">
+      <div class="lobby_symbol">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="lobby_item">
+      {% if request.path == x %}
+        {{ game.playerX }}
+      {% elif request.path == o %}
+        <div id="lobby_playerX">
+          {% if not game.playerX %}
+            Waiting for player...
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="lobby_item">
+      {% if request.path == x %}
+        <label class="switch">
+          <input class="checkbox" type="checkbox">
+          <div class="slider round"></div>
+        </label>
+      {% elif request.path == o %}
+        <div id="lobby_xState"></div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="lobby_column">
+    <div class="lobby_item">
+      <div class="lobby_symbol">
+        <i class="fa fa-circle-o" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="lobby_item">
+      {% if request.path == x %}
+        <div id="lobby_playerO">
+          {% if not game.playerO %}
+            Waiting for player...
+          {% endif %}
+        </div>
+      {% elif request.path == o %}
+        {{ game.playerO }}
+      {% endif %}
+    </div>
+
+    <div class="lobby_item">
+      {% if request.path == x %}
+        <div id="lobby_oState"></div>
+      {% elif request.path == o %}
+        <label class="switch">
+          <input class="checkbox" type="checkbox">
+          <div class="slider round"></div>
+        </label>
+      {% endif %}
+    </div>
+
+  </div>
 </div>
-<div>
-  <form action="{% url 'app:join_x' game %}" method="POST">
-    {% csrf_token %}
-    <button type=submit class="button button-primary">Join X</button>
-  </form>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-top">Starting game...</div>
+    <div class="loader"></div>
+  </div>
 </div>
-<div>
-  <form action="{% url 'app:join_o' game %}" method="POST">
-    {% csrf_token %}
-    <button type=submit class="button button-primary">Join O</button>
-  </form>
-</div>
-{% endblock gamecontent %}
+
+{% endblock gamecontent %} {% block afterbody %}
+<script type="text/javascript" src='{% static "js/jquery-1.12.1.min.js" %}'></script>
+<script type="text/javascript" src='{% static "js/getCookie.js" %}'></script>
+<script type="text/javascript" src='{% static "js/join.js" %}'></script>
+{% endblock afterbody %}
