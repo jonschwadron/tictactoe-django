@@ -27,6 +27,10 @@
     - display timestamp
     - display tiles
 
+## Game plan
+
+![](http://i.imgur.com/6cyHqXu.png)
+
 ## Set game state based on player's presence
 
 - set game state to ready_to_play when:
