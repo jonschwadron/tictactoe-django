@@ -59,6 +59,10 @@ $(function () {
                             $('#lobby_oState').html("Ready");
                         }
                     });
+                } else {
+                    $('#lobby_playerO').html('Waiting for player...');
+                    $('#lobby_oState').html('');
+                    lobby.playerO = null;
                 }
             });
         } else if (window.location.pathname === oPath) {
@@ -74,6 +78,10 @@ $(function () {
                             $('#lobby_xState').html("Ready");
                         }
                     });
+                } else {
+                    $('#lobby_playerX').html('Waiting for player...');
+                    $('#lobby_xState').html('');
+                    lobby.playerX = null;
                 }
             });
         } else {

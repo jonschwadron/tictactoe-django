@@ -19,11 +19,12 @@
 
 </script>
 
-<div class="game_title"><h1>Tic Tac Toe</h1></div>
+<div class="game_title">
+  <h1>Tic Tac Toe</h1>
+</div>
 
 <div class="lobby_container">
-  {% url 'app:join_x' as x %}
-  {% url 'app:join_o' as o %}
+  {% url 'app:join_x' as x %} {% url 'app:join_o' as o %}
   <div class="lobby_column">
     <div class="lobby_item">
       <div class="lobby_symbol">
@@ -32,27 +33,31 @@
     </div>
 
     <div class="lobby_item">
-      {% if request.path == x %}
-        {{ game.playerX }}
-      {% elif request.path == o %}
-        <div id="lobby_playerX">
-          {% if not game.playerX %}
-            Waiting for player...
-          {% endif %}
-        </div>
+      {% if request.path == x %} {{ game.playerX }} {% elif request.path == o %}
+      <div id="lobby_playerX">
+        {% if not game.playerX %} Waiting for player... {% endif %}
+      </div>
       {% endif %}
     </div>
 
     <div class="lobby_item">
       {% if request.path == x %}
-        <label class="switch">
+      <label class="switch">
           <input class="checkbox" type="checkbox">
           <div class="slider round"></div>
-        </label>
-      {% elif request.path == o %}
-        <div id="lobby_xState"></div>
+        </label> {% elif request.path == o %}
+      <div id="lobby_xState"></div>
       {% endif %}
     </div>
+    
+    {% if request.path == x %}
+    <div class="lobby_item">
+      <form action="{% url 'app:exit_x' game.id %}" method="POST">
+        {% csrf_token %}
+        <button type=submit>go back</button>
+      </form>
+    </div>
+    {% endif %}
   </div>
 
   <div class="lobby_column">
@@ -64,26 +69,30 @@
 
     <div class="lobby_item">
       {% if request.path == x %}
-        <div id="lobby_playerO">
-          {% if not game.playerO %}
-            Waiting for player...
-          {% endif %}
-        </div>
-      {% elif request.path == o %}
-        {{ game.playerO }}
-      {% endif %}
+      <div id="lobby_playerO">
+        {% if not game.playerO %} Waiting for player... {% endif %}
+      </div>
+      {% elif request.path == o %} {{ game.playerO }} {% endif %}
     </div>
 
     <div class="lobby_item">
       {% if request.path == x %}
-        <div id="lobby_oState"></div>
+      <div id="lobby_oState"></div>
       {% elif request.path == o %}
-        <label class="switch">
+      <label class="switch">
           <input class="checkbox" type="checkbox">
           <div class="slider round"></div>
-        </label>
-      {% endif %}
+        </label> {% endif %}
     </div>
+
+    {% if request.path == o %}
+    <div class="lobby_item">
+      <form action="{% url 'app:exit_o' game.id %}" method="POST">
+        {% csrf_token %}
+        <button type=submit>go back</button>
+      </form>
+    </div>
+    {% endif %}
 
   </div>
 </div>

@@ -10,6 +10,29 @@ from .models import Game
 def index(request):
      return render(request, "app/index.html")
 
+def exit_x(request, game_id):
+    game = Game.objects.get(id=game_id)
+    game.playerX = None
+    if game.playerO == None: 
+        game.delete()
+    else:
+        game.status = 'waiting_for_players'
+        game.save()
+    
+    return redirect ('app:index', permanent=True)
+
+def exit_o(request, game_id):
+    game = Game.objects.get(id=game_id)
+    game.playerO = None
+
+    if game.playerX == None:
+        game.delete()
+    else:
+        game.status = 'waiting_for_players'
+        game.save()
+    
+    return redirect ('app:index', permanent=True)
+
 def join_x(request):
     # get alias from POST
     alias = request.POST['alias']
