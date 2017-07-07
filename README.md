@@ -27,3 +27,21 @@
     - display timestamp
     - display tiles
 
+## Set game state based on player's presence
+
+- set game state to ready_to_play when:
+    - X joins a game with O
+    - O joins a game with X
+
+- set game state to waiting for players when:
+    - X joins an empty game
+    - O joins an empty game
+    - X leaves a game while O waits
+    - O leaves a game while X waits
+
+- delete the game when:
+    - X leaves an empty game
+    - O leaves an empty game
+
+    ![](http://i.imgur.com/KsDcz0c.png)
+
