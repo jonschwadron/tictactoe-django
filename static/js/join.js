@@ -8,7 +8,7 @@ function displayPlayerAlias(data) {
     } else if (window.location.pathname === xPath) {
         lobby.playerO = data;
         $('#lobby_playerO').html(lobby.playerO);
-    } 
+    }
 }
 
 function displayPlayerState(data) {
@@ -41,7 +41,24 @@ function unseatPlayer() {
     }
 }
 
+window.onbeforeunload = function () {
+    if (window.location.pathname === xPath) {
+        $.ajax({
+            type: "POST",
+            url: exit_x,
+        });
+    }
+    else if (window.location.pathname === oPath) {
+        $.ajax({
+            type: "POST",
+            url: exit_o,
+        });
+    }
+};
+
 $(function () {
+
+
     if (window.location.pathname === xPath) {
         var xCheckbox = $('.checkbox');
 
