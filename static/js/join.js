@@ -1,8 +1,47 @@
 const xPath = '/join/x/'
 const oPath = '/join/o/'
 
-$(function () {
+function displayPlayerAlias(data) {
+    if (window.location.pathname === oPath) {
+        lobby.playerX = data;
+        $('#lobby_playerX').html(lobby.playerX);
+    } else if (window.location.pathname === xPath) {
+        lobby.playerO = data;
+        $('#lobby_playerO').html(lobby.playerO);
+    } 
+}
 
+function displayPlayerState(data) {
+    if (window.location.pathname === oPath) {
+        lobby.xState = JSON.parse(data);
+        if (lobby.xState == "not_ready") {
+            $('#lobby_xState').html("Not Ready");
+        } else {
+            $('#lobby_xState').html("Ready");
+        }
+    } else if (window.location.pathname === xPath) {
+        lobby.oState = JSON.parse(data);
+        if (lobby.oState == "not_ready") {
+            $('#lobby_oState').html("Not Ready");
+        } else {
+            $('#lobby_oState').html("Ready");
+        }
+    }
+}
+
+function unseatPlayer() {
+    if (window.location.pathname === oPath) {
+        $('#lobby_playerX').html('Waiting for player...');
+        $('#lobby_xState').html('');
+        lobby.playerX = null;
+    } else if (window.location.pathname === xPath) {
+        $('#lobby_playerO').html('Waiting for player...');
+        $('#lobby_oState').html('');
+        lobby.playerO = null;
+    }
+}
+
+$(function () {
     if (window.location.pathname === xPath) {
         var xCheckbox = $('.checkbox');
 
@@ -49,39 +88,23 @@ $(function () {
         if (window.location.pathname === xPath) {
             $.get(getPlayerO, function (data) {
                 if (data != "None") {
-                    lobby.playerO = data;
-                    $('#lobby_playerO').html(lobby.playerO);
+                    displayPlayerAlias(data);
                     $.get(getStatusO, function (data) {
-                        lobby.oState = JSON.parse(data);
-                        if (lobby.oState == "not_ready") {
-                            $('#lobby_oState').html("Not Ready");
-                        } else {
-                            $('#lobby_oState').html("Ready");
-                        }
+                        displayPlayerState(data);
                     });
                 } else {
-                    $('#lobby_playerO').html('Waiting for player...');
-                    $('#lobby_oState').html('');
-                    lobby.playerO = null;
+                    unseatPlayer();
                 }
             });
         } else if (window.location.pathname === oPath) {
             $.get(getPlayerX, function (data) {
                 if (data != "None") {
-                    lobby.playerX = data;
-                    $('#lobby_playerX').html(lobby.playerX);
+                    displayPlayerAlias(data);
                     $.get(getStatusX, function (data) {
-                        lobby.xState = JSON.parse(data);
-                        if (lobby.xState == "not_ready") {
-                            $('#lobby_xState').html("Not Ready");
-                        } else {
-                            $('#lobby_xState').html("Ready");
-                        }
+                        displayPlayerState(data);
                     });
                 } else {
-                    $('#lobby_playerX').html('Waiting for player...');
-                    $('#lobby_xState').html('');
-                    lobby.playerX = null;
+                    unseatPlayer();
                 }
             });
         } else {
