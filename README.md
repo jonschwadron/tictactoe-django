@@ -3,6 +3,28 @@
 ## Stack
 - Django, Postgres, JavaScript/jQuery, HTML, CSS
 
+## Game plan
+
+![](http://i.imgur.com/6cyHqXu.png)
+
+## Match Making: Set game state based on player's presence
+
+- set game state to ready_to_play when:
+    - X joins a game with O
+    - O joins a game with X
+
+- set game state to waiting for players when:
+    - X joins an empty game
+    - O joins an empty game
+    - X leaves a game while O waits
+    - O leaves a game while X waits
+
+- delete the game when:
+    - X leaves an empty game
+    - O leaves an empty game
+
+    ![](http://i.imgur.com/KsDcz0c.png)
+
 ## Unsolved problems
 1. Player X with alias "Alice" creates a new game and waits for Player O to join. Player O with alias "Bob joins Alice's game. Alice hit the browser's back button because decided to change her alias to "Cindy" and expects to rejoin Bob.
     - Issue: The browser's back button event doesn't do anything to change the detail of the game.
@@ -26,26 +48,3 @@
     - display loser (alias)
     - display timestamp
     - display tiles
-
-## Game plan
-
-![](http://i.imgur.com/6cyHqXu.png)
-
-## Set game state based on player's presence
-
-- set game state to ready_to_play when:
-    - X joins a game with O
-    - O joins a game with X
-
-- set game state to waiting for players when:
-    - X joins an empty game
-    - O joins an empty game
-    - X leaves a game while O waits
-    - O leaves a game while X waits
-
-- delete the game when:
-    - X leaves an empty game
-    - O leaves an empty game
-
-    ![](http://i.imgur.com/KsDcz0c.png)
-
