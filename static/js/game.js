@@ -100,8 +100,8 @@ $(function () {
                     'type': 'POST',
                     'url': url_updateGameData,
                     'data': {
-                        'nextPlayer': game.nextPlayer,
-                        'tilePosition': game.tilePosition,
+                        'nextPlayer': JSON.stringify(game.nextPlayer),
+                        'tilePosition': JSON.stringify(game.tilePosition),
                     },
                 });
             } else {
@@ -123,8 +123,8 @@ $(function () {
                     'type': 'POST',
                     'url': url_updateGameData,
                     'data': {
-                        'nextPlayer': game.nextPlayer,
-                        'tilePosition': game.tilePosition,
+                        'nextPlayer': JSON.stringify(game.nextPlayer),
+                        'tilePosition': JSON.stringify(game.tilePosition),
                     },
                 });
             } else {
