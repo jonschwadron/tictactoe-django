@@ -1,3 +1,7 @@
+h2 {
+    margin: 0;
+}
+
 #formX,
 #formO,
 #lobbyX,
@@ -12,9 +16,9 @@
 
 .lobby_column {
     width: 200px;
-    height: 250px;
-    padding: 75px;
-    margin: 20px;
+    height: 335px;
+    padding: 30px;
+    margin: 40px;
     text-align: center;
     -webkit-box-shadow: 0px 31px 85px -12px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 31px 85px -12px rgba(0,0,0,0.75);
@@ -82,9 +86,12 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
+.lobby_item {
+    margin-bottom: 12px;
+}
+
 .lobby_item:nth-child(2) {
     font-size: 25px;
-    margin-bottom: 25px;
 }
 
 
@@ -147,7 +154,7 @@ input:checked + .slider:before {
 }
 
 .game_content {
-    padding: 75px;
+    padding: 50px;
     -webkit-box-shadow: 0px 31px 85px -12px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 31px 85px -12px rgba(0,0,0,0.75);
     box-shadow: 0px 31px 85px -12px rgba(0,0,0,0.75);
@@ -217,4 +224,9 @@ input:checked + .slider:before {
 
 .btnPrompt {
     width: 100%;
+}
+
+.player_status {
+    height: 35px;
+    margin: 0;
 }
