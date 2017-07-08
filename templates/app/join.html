@@ -49,12 +49,12 @@
       <div id="lobby_xState"></div>
       {% endif %}
     </div>
-    
+
     {% if request.path == x %}
     <div class="lobby_item">
-      <form action="{% url 'app:exit_x' game.id %}" method="POST">
+      <form id="formExitX" action="{% url 'app:exit_x' game.id %}" method="POST">
         {% csrf_token %}
-        <button type=submit>go back</button>
+        <button type="submit">go back</button>
       </form>
     </div>
     {% endif %}
@@ -87,9 +87,9 @@
 
     {% if request.path == o %}
     <div class="lobby_item">
-      <form action="{% url 'app:exit_o' game.id %}" method="POST">
+      <form id="formExitO" action="{% url 'app:exit_o' game.id %}" method="POST">
         {% csrf_token %}
-        <button type=submit>go back</button>
+        <button type="submit">go back</button>
       </form>
     </div>
     {% endif %}
