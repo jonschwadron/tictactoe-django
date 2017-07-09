@@ -18,7 +18,7 @@ def exit_x(request, game_id):
     else:
         game.status = 'waiting_for_players'
         game.save()
-    
+
     return redirect ('app:index', permanent=True)
 
 def exit_o(request, game_id):
@@ -30,7 +30,7 @@ def exit_o(request, game_id):
     else:
         game.status = 'waiting_for_players'
         game.save()
-    
+
     return redirect ('app:index', permanent=True)
 
 def join_x(request):
