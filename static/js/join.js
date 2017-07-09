@@ -41,24 +41,30 @@ function unseatPlayer() {
     }
 }
 
-window.onbeforeunload = function () {
-    if (window.location.pathname === xPath) {
-        $.ajax({
-            type: "POST",
-            url: exit_x,
-        });
+window.onload = function () {
+    if (typeof history.pushState === "function") {
+        history.pushState('historyData', null, null);
+        window.onpopstate = function () {
+            history.pushState('historyData', null, null);
+            if (window.location.pathname === xPath) {
+                $.ajax({
+                    type: "POST",
+                    url: exit_x,
+                    success: window.location.replace(index)
+                });
+            }
+            else if (window.location.pathname === oPath) {
+                $.ajax({
+                    type: "POST",
+                    url: exit_o,
+                    success: window.location.replace(index)
+                });
+            }
+        };
     }
-    else if (window.location.pathname === oPath) {
-        $.ajax({
-            type: "POST",
-            url: exit_o,
-        });
-    }
-};
+}
 
 $(function () {
-
-
     if (window.location.pathname === xPath) {
         var xCheckbox = $('.checkbox');
 
