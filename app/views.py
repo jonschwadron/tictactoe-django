@@ -61,10 +61,14 @@ def join_x(request):
 
 def join_o(request):
     # get alias from POST
-    alias = request.POST['alias']
+    if 'alias' not in request.POST:
+        alias = None
+    else:
+        alias = request.POST['alias']
+        # get if alias exists else create alias in Player model
+        player, created = Player.objects.get_or_create(alias=alias)
     
-    # get if alias exists else create alias in Player model
-    player, created = Player.objects.get_or_create(alias=alias)
+    
     
     # check if empty playerX and waiting_for_players status exists
     # if found, join the first game_id in the list and change status to ready_to_play
