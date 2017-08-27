@@ -105,7 +105,44 @@ $(function () {
         console.log("error");
     }
 
+
+
     var playerStatusInterval = setInterval(getPlayerStatus, 1000);
+    var playerTimeoutInterval = setInterval(kickIdlePlayer, 10000);
+
+    function kickIdlePlayer() {
+        if (window.location.pathname === xPath) {
+            //detect if no activity, unseatPlayer or reset timer
+            $.get(getPlayerO, function (data) {
+                if (data != "None") {
+                    $.get(getStatusO, function (data) {
+                        if (data == "not_ready") {
+                            $.ajax({
+                                type: "POST",
+                                url: exit_o,
+                            });
+                            unseatPlayer();
+                        }
+                    });
+                }
+            });
+        } else if (window.location.pathname === oPath) {
+            $.get(getPlayerX, function (data) {
+                if (data != "None") {
+                    $.get(getStatusX, function (data) {
+                        if (data == "not_ready") {
+                            $.ajax({
+                                type: "POST",
+                                url: exit_x,
+                            });
+                            unseatPlayer();
+                        }
+                    });
+                }
+            });
+        }
+    }
+
 
     function getPlayerStatus() {
         if (window.location.pathname === xPath) {
